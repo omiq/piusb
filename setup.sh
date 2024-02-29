@@ -91,7 +91,7 @@ echo "sudo /usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc
 
 # Fin?
 echo ""
-echo "Done!"
+echo "Done! Will reboot now ..."
 echo ""
 echo ""
 reboot now
