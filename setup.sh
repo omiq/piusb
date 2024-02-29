@@ -71,6 +71,7 @@ echo "force create mask = 0777" >> /etc/samba/smb.conf
 echo "force directory mask = 0755" >> /etc/samba/smb.conf
 echo "force user = root" >> /etc/samba/smb.conf
 echo "force group = root" >> /etc/samba/smb.conf
+echo "kernel oplocks = yes" >> /etc/samba/smb.conf
 systemctl restart smbd.service
 
 # Watchdog
