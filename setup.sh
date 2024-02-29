@@ -48,11 +48,11 @@ sudo modprobe g_mass_storage file=/piusb.bin stall=0 ro=0
 echo ""
 echo "Installing dependencies"
 echo ""
-apt-get install samba -y
-apt-get install winbind -y
 apt-get install python3 -y
+apt-get install samba -y
 apt-get install python3-pip -y
-pip3 install watchdog
+apt-get install winbind -y
+/usr/bin/pip3 install watchdog
 
 # Share
 echo ""
