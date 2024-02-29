@@ -1,5 +1,12 @@
 #!/bin/sh
 
+if (( $EUID != 0 )); then
+    echo "_______________________________"
+    echo "Please use Sudo or run as root."
+    echo "===============================\n\n"
+    exit
+fi
+
 echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
 
@@ -39,3 +46,12 @@ systemctl restart smbd.service
 # Watchdog
 cp usb_share_watchdog.py /usr/local/share/
 chmod +x /usr/local/share/usb_share_watchdog.py
+
+# Run on boot
+echo "/usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc.local
+/usr/bin/python3 /usr/local/share/usb_share_watchdog.py &
+
+# Fin?
+echo ""
+echo "Done!"
+echo ""
