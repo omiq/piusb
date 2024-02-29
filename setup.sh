@@ -5,6 +5,7 @@
 # sudo ./setup.sh
 
 if [[ $EUID -ne 0 ]]; then
+    echo ""
     echo "_______________________________"
     echo "Please use Sudo or run as root."
     echo "==============================="
@@ -24,6 +25,7 @@ echo "dwc2" >> /etc/modules
 echo ""
 echo ""
 echo "Creating the USB stick storage. This might take some time!"
+echo "=========================================================="
 echo ""
 echo ""
 dd bs=1M if=/dev/zero of=/piusb.bin count=1024
@@ -31,22 +33,25 @@ mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
 echo ""
 echo ""
 echo "USB storage created. Continuing configuration ..."
+echo "=========================================================="
 echo ""
 echo ""
 
 # Create the mount
 echo ""
 echo "Mounting the storage"
+echo "=========================================================="
 echo ""
 mkdir /mnt/usbstick
 chmod +w /mnt/usbstick
-echo "/piusb.bin /mnt/usbstick vfat rw,users,user,exec,noauto,sync,umask=000 0 0" >> /etc/fstab
+echo "/piusb.bin /mnt/usbstick vfat rw,users,user,exec,umask=000 0 0" >> /etc/fstab
 mount -a
 sudo modprobe g_mass_storage file=/piusb.bin stall=0 ro=0
 
 # Dependencies
 echo ""
 echo "Installing dependencies"
+echo "=========================================================="
 echo ""
 apt-get install python3 -y
 apt-get install samba -y
@@ -57,6 +62,7 @@ apt-get install winbind -y
 # Share
 echo ""
 echo "Creating share"
+echo "=========================================================="
 echo ""
 echo "[usbstick]" >> /etc/samba/smb.conf
 echo "browseable = yes" >> /etc/samba/smb.conf
@@ -80,6 +86,7 @@ systemctl restart smbd.service
 # Watchdog
 echo ""
 echo "Setting up watchdog"
+echo "=========================================================="
 echo ""
 cp usb_share_watchdog.py /usr/local/share/
 chmod +x /usr/local/share/usb_share_watchdog.py
@@ -92,6 +99,7 @@ echo "sudo /usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc
 # Fin?
 echo ""
 echo "Done! Will reboot now ..."
+echo "=========================================================="
 echo ""
 echo ""
 reboot now
