@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Download latest: wget https://raw.githubusercontent.com/omiq/piusb/main/setup.sh -O setup.sh
+# Download latest from github: 
+# wget https://raw.githubusercontent.com/omiq/piusb/main/setup.sh -O setup.sh
 # chmod +x setup.sh
 # sudo ./setup.sh
 
