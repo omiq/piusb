@@ -16,14 +16,26 @@ wget https://raw.githubusercontent.com/omiq/piusb/main/usb_share_watchdog.py -O 
 echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
 
+# Set the size as appropriate
+# 1GB = 1024
 # 16GB = 16384
+echo ""
+echo ""
 echo "Creating the USB stick storage. This might take some time!"
-#   dd bs=1M if=/dev/zero of=/piusb.bin count=16384
-#   mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
+echo ""
+echo ""
+dd bs=1M if=/dev/zero of=/piusb.bin count=1024
+mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
+echo ""
+echo ""
 echo "USB storage created. Continuing configuration ..."
+echo ""
+echo ""
 
 # Create the mount
+echo ""
 echo "Mounting the storage"
+echo ""
 mkdir /mnt/usbstick
 chmod +w /mnt/usbstick
 echo "/piusb.bin /mnt/usbstick vfat rw,users,user,exec,umask=000 0 0" >> /etc/fstab
@@ -31,7 +43,9 @@ mount -a
 sudo modprobe g_mass_storage file=/piusb.bin stall=0 ro=0
 
 # Dependencies
+echo ""
 echo "Installing dependencies"
+echo ""
 apt-get install samba -y
 apt-get install winbind -y
 apt-get install python3 -y
@@ -39,7 +53,9 @@ apt-get install python3-pip -y
 pip3 install watchdog
 
 # Share
+echo ""
 echo "Creating share"
+echo ""
 echo "[usbstick]" >> /etc/samba/smb.conf
 echo "browseable = yes" >> /etc/samba/smb.conf
 echo "path = /mnt/usbstick" >> /etc/samba/smb.conf
@@ -58,7 +74,9 @@ echo "force group = root" >> /etc/samba/smb.conf
 systemctl restart smbd.service
 
 # Watchdog
+echo ""
 echo "Setting up watchdog"
+echo ""
 cp usb_share_watchdog.py /usr/local/share/
 chmod +x /usr/local/share/usb_share_watchdog.py
 
@@ -70,3 +88,5 @@ echo "/usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc.loca
 echo ""
 echo "Done!"
 echo ""
+echo ""
+reboot now
