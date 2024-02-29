@@ -24,8 +24,8 @@ echo ""
 echo "Creating the USB stick storage. This might take some time!"
 echo ""
 echo ""
-dd bs=1M if=/dev/zero of=/piusb.bin count=1024
-mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
+#   dd bs=1M if=/dev/zero of=/piusb.bin count=1024
+#   mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
 echo ""
 echo ""
 echo "USB storage created. Continuing configuration ..."
@@ -81,7 +81,8 @@ cp usb_share_watchdog.py /usr/local/share/
 chmod +x /usr/local/share/usb_share_watchdog.py
 
 # Run on boot
-echo "/usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc.local
+sed -i '$d' /etc/rc.local
+echo "sudo /usr/bin/python3 /usr/local/share/usb_share_watchdog.py &" >> /etc/rc.local
 /usr/bin/python3 /usr/local/share/usb_share_watchdog.py &
 
 # Fin?
