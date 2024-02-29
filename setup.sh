@@ -2,7 +2,7 @@
 
 # Download latest: wget https://raw.githubusercontent.com/omiq/piusb/main/setup.sh -O setup.sh
 
-if (( $EUID != 0 )); then
+if [ "$EUID" -ne 0 ]
     echo "_______________________________"
     echo "Please use Sudo or run as root."
     echo "===============================\n\n"
