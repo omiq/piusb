@@ -5,7 +5,9 @@
 if [[ $EUID -ne 0 ]]; then
     echo "_______________________________"
     echo "Please use Sudo or run as root."
-    echo "===============================\n\n"
+    echo "==============================="
+    echo ""
+    echo ""
     exit
 fi
 
