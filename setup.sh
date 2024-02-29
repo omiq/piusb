@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+# Download latest: wget https://raw.githubusercontent.com/omiq/piusb/main/setup.sh -O setup.sh
 
 if (( $EUID != 0 )); then
     echo "_______________________________"
@@ -6,6 +8,8 @@ if (( $EUID != 0 )); then
     echo "===============================\n\n"
     exit
 fi
+
+wget https://raw.githubusercontent.com/omiq/piusb/main/usb_share_watchdog.py -O usb_share_watchdog.py
 
 echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
