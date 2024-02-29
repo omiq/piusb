@@ -24,8 +24,8 @@ echo ""
 echo "Creating the USB stick storage. This might take some time!"
 echo ""
 echo ""
-#   dd bs=1M if=/dev/zero of=/piusb.bin count=1024
-#   mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
+dd bs=1M if=/dev/zero of=/piusb.bin count=1024
+mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
 echo ""
 echo ""
 echo "USB storage created. Continuing configuration ..."
@@ -38,7 +38,7 @@ echo "Mounting the storage"
 echo ""
 mkdir /mnt/usbstick
 chmod +w /mnt/usbstick
-echo "/piusb.bin /mnt/usbstick vfat rw,users,user,exec,umask=000 0 0" >> /etc/fstab
+echo "/piusb.bin /mnt/usbstick vfat rw,users,user,exec,noauto,sync,umask=000 0 0" >> /etc/fstab
 mount -a
 sudo modprobe g_mass_storage file=/piusb.bin stall=0 ro=0
 
