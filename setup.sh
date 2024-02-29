@@ -17,8 +17,10 @@ echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
 
 # 16GB = 16384
+echo "Creating the USB stick storage. This might take some time!"
 dd bs=1M if=/dev/zero of=/piusb.bin count=16384
 mkdosfs /piusb.bin -F 32 --mbr=yes -n PIUSB
+echo "USB storage created. Continuing configuration ..."
 
 # Create the mount
 mkdir /mnt/usbstick
