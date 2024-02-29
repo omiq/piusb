@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Download latest: wget https://raw.githubusercontent.com/omiq/piusb/main/setup.sh -O setup.sh
+# chmod +w setup.sh
+# sudo ./setup.sh
 
 if [[ $EUID -ne 0 ]]; then
     echo "_______________________________"
